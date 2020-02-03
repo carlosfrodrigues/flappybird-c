@@ -3,8 +3,12 @@
 #include "frontend.h"
 
 void draw_bird(Bird *bird){
+  attron(COLOR_PAIR(4));
   mvaddch(bird->y, bird->x, '@');
+  attroff(COLOR_PAIR(4));
+  attron(COLOR_PAIR(3));
   mvaddch(bird->y, bird->x+1, '>');
+  attroff(COLOR_PAIR(3));
 
 }
 
@@ -16,6 +20,8 @@ void draw_pipe(Obstacle *obstacle, int ymax){
   //obstacle->randomCenter = new_random_center(ymax);
 
   //int nRandonNumber = rand()%(my - 8) + 4;
+  attron(COLOR_PAIR(1));
+
   y1 = 0;
   y2 = obstacle->randomCenter - 3;
   x1 = obstacle->x;
@@ -55,9 +61,12 @@ void draw_pipe(Obstacle *obstacle, int ymax){
    mvaddch(obstacle->randomCenter + 4, 8, ACS_URCORNER);
    mvaddch(ymax, 8, ACS_LRCORNER);
 */
+  attroff(COLOR_PAIR(1));
   if(obstacle->next != NULL){
     draw_pipe(obstacle->next, ymax);
   }
+
+
 }
 
 bool get_keyboard(){

@@ -14,7 +14,11 @@ int main() {
   int ymax;
   getmaxyx(stdscr, ymax, xmax);
   Game* game = create_game(xmax, ymax);
-
+  start_color();
+  init_pair(1, COLOR_YELLOW, COLOR_GREEN);
+  init_pair(2, COLOR_CYAN, COLOR_BLUE);
+  init_pair(3, COLOR_YELLOW, COLOR_BLACK);
+  init_pair(4, COLOR_YELLOW, COLOR_RED);
 
   while(true) {
     erase();
