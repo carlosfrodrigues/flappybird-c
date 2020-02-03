@@ -29,6 +29,6 @@ int new_random_center(int ymax);
 //bool collision(Bird* bird, Obstacle* obstacle);
 void move_obstacle(Obstacle* obstacle);
 bool move_game(Game* game, bool isKeyPressed);
-void destroy_obstacle(Obstacle* obstacle);
+Obstacle* destroy_obstacle(Obstacle* obstacle);
 void add_obstacle(Obstacle* obstacle, int xmax, int ymax);
 bool is_obstacle_in_the_middle(Obstacle* obstacle, int xmax);

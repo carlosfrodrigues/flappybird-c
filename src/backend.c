@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include <time.h>
-
+#include "frontend.h"
 
 Obstacle* create_obstacle(int xmax, int center){
   Obstacle* obstacle = (Obstacle*) malloc(sizeof(Obstacle));
@@ -41,6 +41,9 @@ int new_random_center(int ymax){
 
 void move_obstacle(Obstacle* obstacle){
   obstacle->x = obstacle->x-1;
+  if(obstacle->next != NULL){
+    move_obstacle(obstacle->next);
+  }
 }
 
 bool move_game(Game* game, bool isKeyPressed){
@@ -50,6 +53,20 @@ bool move_game(Game* game, bool isKeyPressed){
     game->bird->y = game->bird->y+1;
   }
   move_obstacle(game->obstacle);
+  if(game->obstacle->x == game->xmax/2){
+    add_obstacle(game->obstacle, game->xmax, game->ymax);
+  }
+  else if(game->obstacle->x < game->xmax/2){
+      if(game->obstacle->next->x == game->xmax/2){
+        add_obstacle(game->obstacle->next, game->xmax, game->ymax);
+        /* 
+        Obstacle* obstacleFirst = game->obstacle;
+        game->obstacle = game->obstacle->next;
+        free(obstacleFirst);*/
+        //destroy_obstacle(game->obstacle);
+        game->obstacle = destroy_obstacle(game->obstacle);
+      }
+  }
   /*
   if(collision(game->bird, game->obstacle)){
     return false;
@@ -61,10 +78,14 @@ bool collision(Bird* bird, Obstacle* obstacle){
   if(bird->x && bird->y )
 }
 */
-void destroy_obstacle(Obstacle* obstacle){
+Obstacle* destroy_obstacle(Obstacle* obstacle){
+  if(obstacle == NULL)
+    return NULL;
+
   Obstacle* obstacleFirst = obstacle;
   obstacle = obstacle->next;
   free(obstacleFirst);
+  return obstacle;
 
 }
 
@@ -72,8 +93,7 @@ void add_obstacle(Obstacle* obstacle, int xmax, int ymax){
   if(obstacle->next != NULL){
     add_obstacle(obstacle->next, xmax, ymax);
   }else{
-
     obstacle->next = create_obstacle(xmax, new_random_center(ymax));
+    
   }
-
 }

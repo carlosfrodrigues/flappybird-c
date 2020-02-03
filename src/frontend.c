@@ -9,6 +9,7 @@ void draw_bird(Bird *bird){
 }
 
 void draw_pipe(Obstacle *obstacle, int ymax){
+  
   int y1, y2, x1, x2;
   int y1_down, y2_down, x1_down, x2_down;
   //obstacle->x
@@ -66,5 +67,3 @@ bool get_keyboard(){
   }
   return false;
 }
-
-
