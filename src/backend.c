@@ -61,11 +61,6 @@ bool move_game(Game* game, bool isKeyPressed){
       if(game->obstacle->next->x + 8 == game->xmax/2){
         add_obstacle(game->obstacle->next, game->xmax, game->ymax);
         game->score++;
-        /* 
-        Obstacle* obstacleFirst = game->obstacle;
-        game->obstacle = game->obstacle->next;
-        free(obstacleFirst);*/
-        //destroy_obstacle(game->obstacle);
         game->obstacle = destroy_obstacle(game->obstacle);
       }
   }
@@ -84,7 +79,12 @@ bool collision(Bird* bird, Obstacle* obstacle){
       return true;
   }
   if(obstacle->next != NULL){
-    collision(bird, obstacle->next);
+    if(
+      (bird->y <= obstacle->next->randomCenter-3 && (bird->x >= obstacle->next->x && bird->x <= obstacle->next->x+8)) ||
+      (bird->y >= obstacle->next->randomCenter+3 && (bird->x >= obstacle->next->x && bird->x <= obstacle->next->x+8)) 
+    ){
+      return true;
+    }
   }
   return false;  
 }

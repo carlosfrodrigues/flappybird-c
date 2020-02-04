@@ -1,17 +1,19 @@
 #include "backend.h"
 #include "frontend.h"
+#include <stdio.h>
 #include <ncurses.h>
 
 int main() {
+  bool isKeyPressed;
+  int xmax;
+  int ymax;
+
   initscr();
   cbreak();
   noecho();
   keypad(stdscr, TRUE); 
   curs_set(0);
   timeout(100);
-  bool isKeyPressed;
-  int xmax;
-  int ymax;
   getmaxyx(stdscr, ymax, xmax);
   Game* game = create_game(xmax, ymax);
   start_color();
@@ -24,15 +26,17 @@ int main() {
     erase();
     draw_bird(game->bird);
     draw_pipe(game->obstacle, game->ymax);
-    show_score(game->score, game->xmax);
+    show_score(game->score, game->ymax);
     refresh();
     //sleep(1);
     isKeyPressed = get_keyboard();
     bool keepGoing = move_game(game, isKeyPressed);
     if (keepGoing == false) break;
   }
+  
   endwin();
   erase();
   printf("Fim de jogo. Seu score foi %d\n", game->score);
+  
   return 0;
 }

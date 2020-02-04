@@ -2,10 +2,19 @@
 #include "backend.h"
 #include "frontend.h"
 
-void show_score(int score, int xmax){
+void end_screen(Game* game){
+  erase();
+  attron(COLOR_PAIR(2));
+  mvprintw(game->ymax/2, game->xmax/2, "Fim de jogo. Seu score foi %d\n", game->score);
+  attroff(COLOR_PAIR(2));
+  refresh();
+  //endwin();
+}
+
+void show_score(int score, int ymax){
   attron(COLOR_PAIR(2));
   mvprintw(0,0, "score:%2d", score);
-  for(int i = 1; i < xmax; i++){
+  for(int i = 1; i < ymax; i++){
     mvprintw(i,0, "        ");
   }
   attroff(COLOR_PAIR(2));
@@ -25,10 +34,6 @@ void draw_pipe(Obstacle *obstacle, int ymax){
   
   int y1, y2, x1, x2;
   int y1_down, y2_down, x1_down, x2_down;
-  //obstacle->x
-  //obstacle->randomCenter = new_random_center(ymax);
-
-  //int nRandonNumber = rand()%(my - 8) + 4;
   attron(COLOR_PAIR(1));
 
   y1 = 0;
@@ -60,16 +65,6 @@ void draw_pipe(Obstacle *obstacle, int ymax){
   mvaddch(y2_down, x1_down, ACS_LLCORNER);
   mvaddch(y1_down, x2_down, ACS_URCORNER);
   mvaddch(y2_down, x2_down, ACS_LRCORNER);
-  /* 
-   mvhline(obstacle->randomCenter + 4, obstacle->x, 0, 8);
-   mvhline(ymax, obstacle->x, 0, 8-obstacle->x);
-   mvvline(obstacle->randomCenter + 4, obstacle->x, 0, ymax-obstacle->randomCenter + 4 - obstacle->x);
-   mvvline(obstacle->randomCenter + 4, 8, 0, ymax-obstacle->randomCenter + 4);
-   mvaddch(obstacle->randomCenter + 4, 0, ACS_ULCORNER);
-   mvaddch(ymax, 0, ACS_LLCORNER);
-   mvaddch(obstacle->randomCenter + 4, 8, ACS_URCORNER);
-   mvaddch(ymax, 8, ACS_LRCORNER);
-*/
   attroff(COLOR_PAIR(1));
   if(obstacle->next != NULL){
     draw_pipe(obstacle->next, ymax);
