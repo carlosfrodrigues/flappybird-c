@@ -26,7 +26,7 @@ Obstacle* create_obstacle(int xmax, int randomCenter);
 Bird* create_bird(int xmax, int ymax);
 Game* create_game(int xmax, int ymax);
 int new_random_center(int ymax);
-//bool collision(Bird* bird, Obstacle* obstacle);
+bool collision(Bird* bird, Obstacle* obstacle);
 void move_obstacle(Obstacle* obstacle);
 bool move_game(Game* game, bool isKeyPressed);
 Obstacle* destroy_obstacle(Obstacle* obstacle);

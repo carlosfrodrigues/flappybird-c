@@ -2,10 +2,10 @@
 #include "backend.h"
 #include "frontend.h"
 
-void show_score(int score){
+void show_score(int score, int xmax){
   attron(COLOR_PAIR(2));
   mvprintw(0,0, "score:%2d", score);
-  for(int i = 1; i< 30; i++){
+  for(int i = 1; i < xmax; i++){
     mvprintw(i,0, "        ");
   }
   attroff(COLOR_PAIR(2));

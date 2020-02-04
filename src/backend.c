@@ -70,24 +70,25 @@ bool move_game(Game* game, bool isKeyPressed){
       }
   }
 
-  if(
-    (game->bird->y <= game->obstacle->randomCenter-3 && (game->bird->x >= game->obstacle->x && game->bird->x <= game->obstacle->x+8)) ||
-    (game->bird->y >= game->obstacle->randomCenter+3 && (game->bird->x >= game->obstacle->x && game->bird->x <= game->obstacle->x+8)) 
-    ){
-      return false;
-  }
-
-  /*
   if(collision(game->bird, game->obstacle)){
     return false;
-  } */
+  }
   return true;
 }
-/*
+
 bool collision(Bird* bird, Obstacle* obstacle){
-  if(bird->x && bird->y )
+  if(
+    (bird->y <= obstacle->randomCenter-3 && (bird->x >= obstacle->x && bird->x <= obstacle->x+8)) ||
+    (bird->y >= obstacle->randomCenter+3 && (bird->x >= obstacle->x && bird->x <= obstacle->x+8)) 
+    ){
+      return true;
+  }
+  if(obstacle->next != NULL){
+    collision(bird, obstacle->next);
+  }
+  return false;  
 }
-*/
+
 Obstacle* destroy_obstacle(Obstacle* obstacle){
   if(obstacle == NULL)
     return NULL;
