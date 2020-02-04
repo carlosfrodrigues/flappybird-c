@@ -22,8 +22,10 @@ int main() {
 
   while(true) {
     erase();
+    show_score(game->score);
     draw_bird(game->bird);
     draw_pipe(game->obstacle, game->ymax);
+    show_score(game->score);
     refresh();
     //sleep(1);
     isKeyPressed = get_keyboard();

@@ -55,10 +55,12 @@ bool move_game(Game* game, bool isKeyPressed){
   move_obstacle(game->obstacle);
   if(game->obstacle->x == game->xmax/2){
     add_obstacle(game->obstacle, game->xmax, game->ymax);
+    game->score++;
   }
   else if(game->obstacle->x < game->xmax/2){
-      if(game->obstacle->next->x == game->xmax/2){
+      if(game->obstacle->next->x + 8 == game->xmax/2){
         add_obstacle(game->obstacle->next, game->xmax, game->ymax);
+        game->score++;
         /* 
         Obstacle* obstacleFirst = game->obstacle;
         game->obstacle = game->obstacle->next;
@@ -67,6 +69,14 @@ bool move_game(Game* game, bool isKeyPressed){
         game->obstacle = destroy_obstacle(game->obstacle);
       }
   }
+
+  if(
+    (game->bird->y <= game->obstacle->randomCenter-3 && (game->bird->x >= game->obstacle->x && game->bird->x <= game->obstacle->x+8)) ||
+    (game->bird->y >= game->obstacle->randomCenter+3 && (game->bird->x >= game->obstacle->x && game->bird->x <= game->obstacle->x+8)) 
+    ){
+      return false;
+  }
+
   /*
   if(collision(game->bird, game->obstacle)){
     return false;

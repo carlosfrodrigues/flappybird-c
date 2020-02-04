@@ -2,6 +2,15 @@
 #include "backend.h"
 #include "frontend.h"
 
+void show_score(int score){
+  attron(COLOR_PAIR(2));
+  mvprintw(0,0, "score:%2d", score);
+  for(int i = 1; i< 30; i++){
+    mvprintw(i,0, "        ");
+  }
+  attroff(COLOR_PAIR(2));
+}
+
 void draw_bird(Bird *bird){
   attron(COLOR_PAIR(4));
   mvaddch(bird->y, bird->x, '@');
