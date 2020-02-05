@@ -2,19 +2,13 @@
 #include "backend.h"
 #include "frontend.h"
 
-void end_screen(Game* game){
-  erase();
-  attron(COLOR_PAIR(2));
-  mvprintw(game->ymax/2, game->xmax/2, "Fim de jogo. Seu score foi %d\n", game->score);
-  attroff(COLOR_PAIR(2));
-  refresh();
-  //endwin();
-}
-
-void show_score(int score, int ymax){
+void show_score(int score, int ymax, int ybird){
   attron(COLOR_PAIR(2));
   mvprintw(0,0, "score:%2d", score);
-  for(int i = 1; i < ymax; i++){
+  mvprintw(1,0, "        ");
+  mvprintw(2,0, " y-axis ");
+  mvprintw(3,0, "   %2d   ", ybird);
+  for(int i = 4; i < ymax; i++){
     mvprintw(i,0, "        ");
   }
   attroff(COLOR_PAIR(2));
